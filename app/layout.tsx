@@ -1,5 +1,7 @@
+// layout.tsx — СЕРВЕРНИЙ компонент, не використовує useEffect
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { ServiceWorkerRegister } from "../components/ServiceWorkerRegister"; // імпортуй
 
 const APP_NAME = "Wallpaper";
 const APP_DESCRIPTION = "RGB Wallpaper Generator PWA";
@@ -35,18 +37,21 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" dir="ltr">
       <head>
         <style>{`
-            html, body, #__next {
-              height: 100%;
-            }
-            #__next {
-              margin: 0 auto;
-            }
-            h1 {
-              text-align: center;
-            }
-            `}</style>
+          html, body, #__next {
+            height: 100%;
+          }
+          #__next {
+            margin: 0 auto;
+          }
+          h1 {
+            text-align: center;
+          }
+        `}</style>
       </head>
-      <body>{children}</body>
+      <body>
+        <ServiceWorkerRegister /> {/* Додаємо SW реєстратор */}
+        {children}
+      </body>
     </html>
   );
 }
